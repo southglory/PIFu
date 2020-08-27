@@ -152,7 +152,7 @@ def render_prt_ortho(out_path, folder_name, subject_name, shs, rndr, rndr_uv, im
     cam.sanity_check()
 
     # set path for obj, prt
-    mesh_file = os.path.join(folder_name, subject_name + '_30k.obj')
+    mesh_file = os.path.join(folder_name, subject_name + '_50k.obj')
     if not os.path.exists(mesh_file):
         print('ERROR: obj file does not exist!!', mesh_file)
         return 
