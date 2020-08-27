@@ -11,3 +11,4 @@ yellow=np.array(pixlist,dtype=np.uint8)
 print(yellow)
 cv2.imshow('yellow',yellow)
 cv2.imwrite('data1/tex/rp_dennis_posed_004_dif_2k_yellow.jpg',yellow)
+
