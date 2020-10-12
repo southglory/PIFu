@@ -86,8 +86,8 @@ def getSHCoeffs(order, phi, theta):
 
 def computePRT(mesh_path, n, order):
     mesh = trimesh.load(mesh_path, process=False)
-    vectors, phi, theta = sampleSphericalDirections(n)
-    SH = getSHCoeffs(order, phi, theta)
+    vectors_orig, phi, theta = sampleSphericalDirections(n)
+    SH_orig = getSHCoeffs(order, phi, theta)
 
     w = 4.0 * math.pi / (n*n)
 
@@ -99,8 +99,8 @@ def computePRT(mesh_path, n, order):
     normals = np.repeat(normals[:,None], n, axis=1).reshape(-1,3)
     PRT_all = None
     for i in tqdm(range(n)):
-        SH = np.repeat(SH[None,(i*n):((i+1)*n)], n_v, axis=0).reshape(-1,SH.shape[1])
-        vectors = np.repeat(vectors[None,(i*n):((i+1)*n)], n_v, axis=0).reshape(-1,3)
+        SH = np.repeat(SH_orig[None,(i*n):((i+1)*n)], n_v, axis=0).reshape(-1,SH_orig.shape[1])
+        vectors = np.repeat(vectors_orig[None,(i*n):((i+1)*n)], n_v, axis=0).reshape(-1,3)
 
         dots = (vectors * normals).sum(1)
         front = (dots > 0.0)
@@ -126,7 +126,7 @@ def testPRT(dir_path, n=40):
     if dir_path[-1] == '/':
         dir_path = dir_path[:-1]
     sub_name = dir_path.split('/')[-1][:-4]
-    obj_path = os.path.join(dir_path, sub_name + '_50k.obj')
+    obj_path = os.path.join(dir_path, sub_name + '_100k.obj')
     os.makedirs(os.path.join(dir_path, 'bounce'), exist_ok=True)
 
     PRT, F = computePRT(obj_path, n, 2)
@@ -135,7 +135,7 @@ def testPRT(dir_path, n=40):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--input', type=str, default='/content/rp_dennis_posed_004_OBJ')
+    parser.add_argument('-i', '--input', type=str, default='/home/shunsuke/Downloads/rp_dennis_posed_004_OBJ')
     parser.add_argument('-n', '--n_sample', type=int, default=40, help='squared root of number of sampling. the higher, the more accurate, but slower')
     args = parser.parse_args()
 

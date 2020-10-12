@@ -152,7 +152,7 @@ def render_prt_ortho(out_path, folder_name, subject_name, shs, rndr, rndr_uv, im
     cam.sanity_check()
 
     # set path for obj, prt
-    mesh_file = os.path.join(folder_name, subject_name + '_50k.obj')
+    mesh_file = os.path.join(folder_name, subject_name + '_100k.obj')
     if not os.path.exists(mesh_file):
         print('ERROR: obj file does not exist!!', mesh_file)
         return 
@@ -164,7 +164,7 @@ def render_prt_ortho(out_path, folder_name, subject_name, shs, rndr, rndr_uv, im
     if not os.path.exists(face_prt_file):
         print('ERROR: face prt file does not exist!!!', prt_file)
         return
-    text_file = os.path.join(folder_name, 'tex', subject_name + '_dif_05k_grey.jpg')
+    text_file = os.path.join(folder_name, 'tex', subject_name + '_dif_2k.jpg')
     if not os.path.exists(text_file):
         print('ERROR: dif file does not exist!!', text_file)
         return             
